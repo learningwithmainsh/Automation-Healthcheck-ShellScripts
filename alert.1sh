@@ -1,0 +1,9 @@
+# vi /opt/scripts/memory-alert.sh
+
+#!/bin/bash
+musage=$(free | awk '/Mem/{printf("RAM Usage: %.2f%\n"), $3/$2*100}' |  awk '{print $3}' | cut -d"." -f1)
+if [ $musage -le 600 ]; then
+echo "Current Memory Usage: $musage%" | mail -s "Memory Usage on $(hostname) at $(date)" mnshkmrpnd@gmail.com
+else
+echo "Memory usage is in under threshold"
+fi
